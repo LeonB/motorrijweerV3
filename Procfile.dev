@@ -1,0 +1,5 @@
+# foreman start -f Procfile.dev
+
+# server: rails server
+web: bundle exec unicorn -p $PORT -c ./config/unicorn.rb
+# compass: bundle exec compass watch

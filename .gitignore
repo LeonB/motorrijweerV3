@@ -14,3 +14,10 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+# Ignore editor/IDE stuff
+/ctags
+
+# Ignore configuration stuff
+/.env
+/config/database.yml
