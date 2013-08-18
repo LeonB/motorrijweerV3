@@ -3,4 +3,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-V3::Application.load_tasks
+MotorrijweerV3::Application.load_tasks

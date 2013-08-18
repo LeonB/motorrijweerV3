@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-V3::Application.config.secret_key_base = '1c6416b82f945ddb7be858f4c5e36730134f3e38592b7691b054a47c63839d2c67854f1aa0d90f8ef4530176ee9ffce91762883faa22e0852b65c231df4be8b4'
+MotorrijweerV3::Application.config.secret_key_base = '1c6416b82f945ddb7be858f4c5e36730134f3e38592b7691b054a47c63839d2c67854f1aa0d90f8ef4530176ee9ffce91762883faa22e0852b65c231df4be8b4'
