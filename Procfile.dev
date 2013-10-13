@@ -2,4 +2,4 @@
 
 # server: rails server
 web: bundle exec unicorn -p $PORT -c ./config/unicorn.rb
-# compass: bundle exec compass watch
+compass: bundle exec compass watch

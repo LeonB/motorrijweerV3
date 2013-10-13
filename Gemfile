@@ -16,7 +16,8 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 
 # Use foundation
-gem "compass-rails", "~> 2.0.alpha.0" # you need this or you get an err
+# gem 'compass-rails', :github => 'Compass/compass-rails', :branch => 'rails4'
+gem "compass-rails", "~> 2.0.alpha.0"
 gem 'zurb-foundation', '~> 4.0'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
@@ -36,11 +37,18 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+group :production do
+  # Use passenger (https://github.com/phusion/passenger-ruby-heroku-demo)
+  gem "passenger"
+end
+
+group :dev do
+  # Use unicorn as the app server
+  gem 'unicorn'
+end
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
-
-# Use unicorn as the app server
-gem 'unicorn'
 
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development

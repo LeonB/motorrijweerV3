@@ -15,7 +15,17 @@
 /log/*.log
 /tmp
 
+# Ignore sass cache
+/.sass-cache/
+
+# Ignore generated assets
+/public/assets/
+/public/stylesheets/
+/public/uploads/post/image
+/public/uploads/tmp/
+
 # Ignore editor/IDE stuff
+*.sublime-workspace
 /ctags
 
 # Ignore configuration stuff
