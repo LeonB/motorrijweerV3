@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(version: 20131102223721) do
 
   create_table "regions", force: true do |t|
     t.string   "name"
+    t.string   "code"
     t.integer  "parent_id"
     t.integer  "lft"
     t.integer  "rgt"
