@@ -1,19 +1,16 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.0'
-
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+gem 'rails', '4.0.1'
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.0'
+gem 'sass-rails', '~> 4.0.1'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 
 # Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails', '~> 4.0.0'
+# gem 'coffee-rails', '~> 4.0.0'
 
 # Use foundation
 # gem 'compass-rails', :github => 'Compass/compass-rails', :branch => 'rails4'
@@ -40,11 +37,17 @@ end
 group :production do
   # Use passenger (https://github.com/phusion/passenger-ruby-heroku-demo)
   gem "passenger"
+
+  # Enable gzip on heroku
+  gem 'heroku-deflater', :group => :production
 end
 
 group :dev do
   # Use unicorn as the app server
   gem 'unicorn'
+
+  # Use sqlite3 as the database for Active Record
+  gem 'sqlite3'
 end
 
 # Use ActiveModel has_secure_password
@@ -58,3 +61,7 @@ end
 
 # Read .env file for console and rake
 gem 'dotenv-rails', :groups => [:development, :test]
+
+gem 'awesome_nested_set', '~> 3.0.0.rc.2'
+# http://www.rubygeocoder.com/
+gem 'geocoder'
