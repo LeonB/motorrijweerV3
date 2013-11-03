@@ -22,6 +22,7 @@ module MotorrijweerV3
 
     # Disable sass compilation?
     config.assets.enabled = false
+    config.autoload_paths += %W(#{config.root}/lib)
 
   end
 end
