@@ -65,3 +65,4 @@ gem 'dotenv-rails', :groups => [:development, :test]
 gem 'awesome_nested_set', '~> 3.0.0.rc.2'
 # http://www.rubygeocoder.com/
 gem 'geocoder'
+gem 'forecast_io'

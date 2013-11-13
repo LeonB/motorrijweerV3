@@ -50,8 +50,15 @@ GEM
       dotenv (= 0.9.0)
     erubis (2.7.0)
     execjs (2.0.2)
+    faraday (0.8.8)
+      multipart-post (~> 1.2.0)
+    forecast_io (2.0.0)
+      faraday
+      hashie
+      multi_json
     fssm (0.2.10)
     geocoder (1.1.8)
+    hashie (2.0.5)
     heroku-deflater (0.5.1)
       rack (>= 1.4.5)
     hike (1.2.3)
@@ -70,6 +77,7 @@ GEM
     mime-types (1.25)
     minitest (4.7.5)
     multi_json (1.8.2)
+    multipart-post (1.2.0)
     passenger (4.0.23)
       daemon_controller (>= 1.1.0)
       rack
@@ -140,6 +148,7 @@ DEPENDENCIES
   awesome_nested_set (~> 3.0.0.rc.2)
   compass-rails (~> 2.0.alpha.0)
   dotenv-rails
+  forecast_io
   geocoder
   heroku-deflater
   jbuilder (~> 1.2)
