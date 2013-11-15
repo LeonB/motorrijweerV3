@@ -66,5 +66,7 @@ gem 'awesome_nested_set', '~> 3.0.0.rc.2'
 # http://www.rubygeocoder.com/
 gem 'geocoder'
 gem 'forecast_io'
+# Use for caching api calls
+gem 'cache_method'
 # A unit handling library for ruby
 gem 'ruby-units'
