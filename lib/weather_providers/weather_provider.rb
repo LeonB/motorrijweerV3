@@ -3,6 +3,12 @@ require 'ruby-units'
 module WeatherProviders
   class WeatherProvider
 
+    attr_accessor :records
+
+    def initialize
+      self.records = []
+    end
+
     def collect_data(*args)
       data = {}
 
@@ -18,6 +24,10 @@ module WeatherProviders
       return data
     end
 
+    def get_station_id(station, data, period)
+      return station.id
+    end
+
     def forecast(station)
       f = Forecast.new
       f.station_id = station.id
@@ -29,11 +39,12 @@ module WeatherProviders
     # If it exists: merge the data??
     # If not: just save it
     def save(data)
-        f = Forecast.where(
-            :station_id => data[:station_id],
-            :from_datetime => data[:from_datetime],
-            :to_datetime => data[:to_datetime]
-        ).first_or_initialize
+      f = Forecast.where(
+        :station_id => data[:station_id],
+        :from_datetime => data[:from_datetime],
+        :to_datetime => data[:to_datetime],
+        :provider => data[:provider]
+      ).first_or_initialize
 
       attributes = data.each do |attr, value|
           next if attr == Forecast.primary_key
@@ -43,7 +54,9 @@ module WeatherProviders
 
       f.attributes = attributes
       f.save
-      pp f.id
+
+      self.records << f
+      return f
     end
 
   end
