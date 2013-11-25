@@ -2,12 +2,37 @@ require 'ruby-units'
 
 module WeatherProviders
   class WeatherProvider
+    PERIOD_MINUTE = 1.minute
+    PERIOD_HOUR = 1.hour
+    PERIOD_DAY = 1.day
 
-    attr_accessor :records
+    attr_accessor :results
 
     def initialize
-      self.records = []
+      self.results = {
+        :created   => 0,
+        :failed    => 0,
+        :processed => 0,
+        :skipped   => 0,
+        :updated   => 0
+      }
     end
+
+    def import_forecasts(station)
+      self.send(:initialize)
+      api_data = self.get_api_data(station)
+      yield(api_data)
+      pp "Processed #{self.results[:processed]} forecasts"
+      pp "Created #{self.results[:created]} forecasts"
+      pp "Updated #{self.results[:updated]} forecasts"
+      pp "Skipped #{self.results[:skipped]} forecasts"
+      pp "#{self.results[:failed]} forecasts failed saving"
+    end
+
+    def get_api_data(station)
+      yield
+    end
+    cache_method :get_api_data, 60.minutes.to_i
 
     def collect_data(*args)
       data = {}
@@ -28,17 +53,16 @@ module WeatherProviders
       return station.id
     end
 
-    def forecast(station)
-      f = Forecast.new
-      f.station_id = station.id
-      f.provider = self.class::PROVIDER
-      return f
+    def get_provider(station, data, period)
+      return self.class::PROVIDER
     end
 
     # Match the forecast's data with the database
     # If it exists: merge the data??
     # If not: just save it
     def save(data)
+      self.results[:processed] += 1
+
       f = Forecast.where(
         :station_id => data[:station_id],
         :from_datetime => data[:from_datetime],
@@ -53,9 +77,26 @@ module WeatherProviders
       end
 
       f.attributes = attributes
-      f.save
+      new_record = f.new_record?
+      changed = f.changed?
 
-      self.records << f
+      if not changed
+        self.results[:skipped] += 1
+        return f
+      end
+
+      if not f.save
+        pp "Could not save forecast. Errors: #{f.errors.messages}"
+        self.results[:failed] += 1
+        return f
+      end
+
+      if new_record
+        self.results[:created] += 1
+      elsif changed
+        self.results[:updated] += 1
+      end
+
       return f
     end
 

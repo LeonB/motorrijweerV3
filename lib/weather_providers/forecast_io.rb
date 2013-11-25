@@ -3,46 +3,40 @@ require 'pp'
 module WeatherProviders
   class ForecastIo < WeatherProviders::WeatherProvider
     PROVIDER = 'forecast.io'
-    PERIOD_MINUTE = 1.minute
-    PERIOD_HOUR = 1.hour
-    PERIOD_DAY = 1.day
 
-    def forecasts(station)
-      forecasts = []
-      api_data = self.get_api_data(station)
+    def import_forecasts(station)
+      super do |api_data|
+        if api_data.has_key?(:minutely)
+          pp "#{ForecastIo::PROVIDER}: Fetching minutely data for #{station.name}"
+          api_data.minutely.data.each do |minutely|
+            d = self.collect_data(station, minutely, WeatherProvider::PERIOD_MINUTE)
+            self.save(d)
+          end
+        end
 
-      if api_data.has_key?(:minutely)
-        pp "#{ForecastIo::PROVIDER}: Fetching minutely data for #{station.name}"
-        api_data.minutely.data.each do |minutely|
-          d = self.collect_data(station, minutely, ForecastIo::PERIOD_MINUTE)
-          self.save(d)
+        if api_data.has_key?(:hourly)
+          pp "#{ForecastIo::PROVIDER}: Fetching hourly data for #{station.name}"
+          api_data.hourly.data.each do |hourly|
+            d = self.collect_data(station, hourly, WeatherProvider::PERIOD_HOUR)
+            self.save(d)
+          end
+        end
+
+        if api_data.has_key?(:daily)
+          pp "#{ForecastIo::PROVIDER}: Fetching daily data for #{station.name}"
+          api_data.daily.data.each do |daily|
+            d = self.collect_data(station, daily, WeatherProvider::PERIOD_DAY)
+            self.save(d)
+          end
         end
       end
-
-      if api_data.has_key?(:hourly)
-        pp "#{ForecastIo::PROVIDER}: Fetching hourly data for #{station.name}"
-        api_data.hourly.data.each do |hourly|
-          d = self.collect_data(station, hourly, ForecastIo::PERIOD_HOUR)
-          self.save(d)
-        end
-      end
-
-      if api_data.has_key?(:daily)
-        pp "#{ForecastIo::PROVIDER}: Fetching daily data for #{station.name}"
-        api_data.daily.data.each do |daily|
-          d = self.collect_data(station, daily, ForecastIo::PERIOD_DAY)
-          self.save(d)
-        end
-      end
-
-      return self.records
     end
 
     def get_api_data(station)
       # https://api.forecast.io/forecast/9ccd69acf062e01564240edd8a71f3d2/51.423981,5.392537
       return ForecastIO.forecast(station.latitude, station.longitude)
     end
-    cache_method :get_api_data, 5.minutes.to_i
+    cache_method :get_api_data, 60.minutes.to_i
 
     def get_from_datetime(station, data, period)
       return Time.at(data.time).to_datetime
@@ -87,6 +81,18 @@ module WeatherProviders
     def get_precipitation_in_mm_per_hour_avg(station, data, period)
       # depends on units=si
       return data.precipIntensity
+    end
+
+    def get_winter_precipitation_in_mm_per_hour_max(station, data, period)
+      return nil
+    end
+
+    def get_winter_precipitation_in_mm_per_hour_min(station, data, period)
+      return nil
+    end
+
+    def get_winter_precipitation_in_mm_per_hour_avg(station, data, period)
+      return nil
     end
 
     def get_temperature_in_celcius_max(station, data, period)
