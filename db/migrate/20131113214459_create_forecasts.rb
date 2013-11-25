@@ -13,6 +13,9 @@ class CreateForecasts < ActiveRecord::Migration
       t.decimal    :precipitation_in_mm_per_hour_max, :precision => 5, :scale => 4
       t.decimal    :precipitation_in_mm_per_hour_min, :precision => 5, :scale => 4
       t.decimal    :precipitation_in_mm_per_hour_avg, :precision => 5, :scale => 4
+      t.decimal    :winter_precipitation_in_mm_per_hour_max, :precision => 5, :scale => 4
+      t.decimal    :winter_precipitation_in_mm_per_hour_min, :precision => 5, :scale => 4
+      t.decimal    :winter_precipitation_in_mm_per_hour_avg, :precision => 5, :scale => 4
       t.decimal    :temperature_in_celcius_max, :precision => 5, :scale => 2
       t.decimal    :temperature_in_celcius_min, :precision => 5, :scale => 2
       t.decimal    :temperature_in_celcius_avg, :precision => 5, :scale => 2
