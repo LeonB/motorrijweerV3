@@ -3,6 +3,6 @@ ForecastIO.configure do |configuration|
   configuration.default_params = {
     units: 'si',
     extend: 'hourly',
-    exclude: 'daily,alerts,flags',
+    exclude: 'minutely,daily,alerts,flags',
   }
 end
