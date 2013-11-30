@@ -17,12 +17,12 @@ namespace :providers do
           provider.import_forecasts(station)
           if not station == stations.last
             # Mark the end of a station
-            pp '------------------------'
+            puts '------------------------'
           end
         end
         if not i+1 == providers.size
           # Mark the end of a provider
-          pp '------------------------'
+          puts '------------------------'
         end
       end # providers
     end
@@ -39,9 +39,9 @@ namespace :providers do
         provider = provider_class.constantize.new()
         stations = Station.all
         stations.each do |station|
-          provider.forecasts(station)
+          provider.import_forecasts(station)
           if not station == stations.last
-            pp '------------------------'
+            puts '------------------------'
           end
         end
       end # task
@@ -56,7 +56,7 @@ namespace :providers do
       # stations.each do |station|
         # provider.forecasts(station)
         # if not station == stations.last
-          # pp '------------------------'
+          # puts '------------------------'
         # end
       # end
     # end
@@ -70,7 +70,7 @@ namespace :providers do
       # stations.each do |station|
         # provider.forecasts(station)
         # if not station == stations.last
-          # pp '------------------------'
+          # puts '------------------------'
         # end
       # end
     # end

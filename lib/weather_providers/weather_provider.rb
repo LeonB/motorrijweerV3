@@ -22,11 +22,11 @@ module WeatherProviders
       self.send(:initialize)
       api_data = self.get_api_data(station)
       yield(api_data)
-      pp "Processed #{self.results[:processed]} forecasts"
-      pp "Created #{self.results[:created]} forecasts"
-      pp "Updated #{self.results[:updated]} forecasts"
-      pp "Skipped #{self.results[:skipped]} forecasts"
-      pp "#{self.results[:failed]} forecasts failed saving"
+      puts "Processed #{self.results[:processed]} forecasts"
+      puts "Created #{self.results[:created]} forecasts"
+      puts "Updated #{self.results[:updated]} forecasts"
+      puts "Skipped #{self.results[:skipped]} forecasts"
+      puts "#{self.results[:failed]} forecasts failed saving"
     end
 
     def get_api_data(station)
@@ -83,10 +83,17 @@ module WeatherProviders
       if not changed
         self.results[:skipped] += 1
         return f
+      # else
+        # changes = f.changes
+        # changes.each do |i, data|
+          # data[0] = data[0].to_s
+          # data[1] = data[1].to_s
+        # end
+        # puts changes
       end
 
       if not f.save
-        pp "Could not save forecast. Errors: #{f.errors.messages}"
+        puts "Could not save forecast. Errors: #{f.errors.messages}"
         self.results[:failed] += 1
         return f
       end

@@ -1,5 +1,3 @@
-require 'pp'
-
 module WeatherProviders
   class WeatherUnderground < WeatherProviders::WeatherProvider
     PROVIDER = 'Weather Underground'
@@ -7,9 +5,9 @@ module WeatherProviders
     def import_forecasts(station)
       super do |api_data|
         if api_data.has_key?('hourly_forecast')
-          pp "#{WeatherUnderground::PROVIDER}: Fetching hourly data for #{station.name}"
+          puts "#{WeatherUnderground::PROVIDER}: Fetching hourly data for #{station.name}"
           api_data['hourly_forecast'].each do |hourly|
-            # pp hourly
+            # puts hourly
             d = self.collect_data(station, hourly, WeatherProvider::PERIOD_HOUR)
             self.save(d)
           end

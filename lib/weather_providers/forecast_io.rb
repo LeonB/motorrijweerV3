@@ -1,5 +1,3 @@
-require 'pp'
-
 module WeatherProviders
   class ForecastIo < WeatherProviders::WeatherProvider
     PROVIDER = 'forecast.io'
@@ -7,7 +5,7 @@ module WeatherProviders
     def import_forecasts(station)
       super do |api_data|
         if api_data.has_key?(:minutely)
-          pp "#{ForecastIo::PROVIDER}: Fetching minutely data for #{station.name}"
+          puts "#{ForecastIo::PROVIDER}: Fetching minutely data for #{station.name}"
           api_data.minutely.data.each do |minutely|
             d = self.collect_data(station, minutely, WeatherProvider::PERIOD_MINUTE)
             self.save(d)
@@ -15,7 +13,7 @@ module WeatherProviders
         end
 
         if api_data.has_key?(:hourly)
-          pp "#{ForecastIo::PROVIDER}: Fetching hourly data for #{station.name}"
+          puts "#{ForecastIo::PROVIDER}: Fetching hourly data for #{station.name}"
           api_data.hourly.data.each do |hourly|
             d = self.collect_data(station, hourly, WeatherProvider::PERIOD_HOUR)
             self.save(d)
@@ -23,7 +21,7 @@ module WeatherProviders
         end
 
         if api_data.has_key?(:daily)
-          pp "#{ForecastIo::PROVIDER}: Fetching daily data for #{station.name}"
+          puts "#{ForecastIo::PROVIDER}: Fetching daily data for #{station.name}"
           api_data.daily.data.each do |daily|
             d = self.collect_data(station, daily, WeatherProvider::PERIOD_DAY)
             self.save(d)
