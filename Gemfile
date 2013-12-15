@@ -62,7 +62,10 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem 'simplecov', :require => false, :group => :test
+group :test do
+    gem 'simplecov', :require => false
+    gem 'webmock'
+end
 
 # Read .env file for console and rake
 gem 'dotenv-rails', :groups => [:development, :test]
