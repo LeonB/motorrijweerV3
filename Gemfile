@@ -62,6 +62,8 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+gem 'simplecov', :require => false, :group => :test
+
 # Read .env file for console and rake
 gem 'dotenv-rails', :groups => [:development, :test]
 

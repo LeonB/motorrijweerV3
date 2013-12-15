@@ -31,3 +31,6 @@
 # Ignore configuration stuff
 /.env
 /config/database.yml
+
+# Ignore code coverage
+/coverage
