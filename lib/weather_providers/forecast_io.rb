@@ -57,28 +57,36 @@ module WeatherProviders
       return data.precipType
     end
 
-    def get_precipitation_accumulation_in_centimers(station, data, period)
+    def get_precipitation_accumulation_in_centimers_max(station, data, period)
+      return nil
+    end
+
+    def get_precipitation_accumulation_in_centimers_min(station, data, period)
+      return nil
+    end
+
+    def get_precipitation_accumulation_in_centimers_avg(station, data, period)
       # depends on units=si
-      return data.precipAccumulation
+      return data.precipAccumulation.to_f
     end
 
     def get_precipitation_probability(station, data, period)
-      return data.precipProbability
+      return data.precipProbability.to_f
     end
 
     def get_precipitation_in_mm_per_hour_max(station, data, period)
       # depends on units=si
-      return data.precipIntensityMax
+      return data.precipIntensityMax.to_f
     end
 
     def get_precipitation_in_mm_per_hour_min(station, data, period)
       # depends on units=si
-      return data.precipIntensityMin
+      return data.precipIntensityMin.to_f
     end
 
     def get_precipitation_in_mm_per_hour_avg(station, data, period)
       # depends on units=si
-      return data.precipIntensity
+      return data.precipIntensity.to_f
     end
 
     def get_winter_precipitation_in_mm_per_hour_max(station, data, period)
@@ -94,31 +102,31 @@ module WeatherProviders
     end
 
     def get_temperature_in_celcius_max(station, data, period)
-      return data.temperatureMax
+      return data.temperatureMax.to_f
     end
 
     def get_temperature_in_celcius_min(station, data, period)
-      return data.temperatureMin
+      return data.temperatureMin.to_f
     end
 
     def get_temperature_in_celcius_avg(station, data, period)
       # depends on units=si
-      return data.temperature
+      return data.temperature.to_f
     end
 
     def get_apparent_temperature_in_celcius_max(station, data, period)
       # depends on units=si
-      return data.apparentTemperatureMax
+      return data.apparentTemperatureMax.to_f
     end
 
     def get_apparent_temperature_in_celcius_min(station, data, period)
       # depends on units=si
-      return data.apparentTemperatureMin
+      return data.apparentTemperatureMin.to_f
     end
 
     def get_apparent_temperature_in_celcius_avg(station, data, period)
       # depends on units=si
-      return data.apparentTemperature
+      return data.apparentTemperature.to_f
     end
 
     def get_wind_speed_in_meters_per_second_max(station, data, period)
@@ -131,7 +139,7 @@ module WeatherProviders
 
     def get_wind_speed_in_meters_per_second_avg(station, data, period)
       # depends on units=si
-      return data.windSpeed
+      return data.windSpeed.to_f
     end
 
     def get_wind_bearing_in_degrees_max(station, data, period)
@@ -143,7 +151,7 @@ module WeatherProviders
     end
 
     def get_wind_bearing_in_degrees_avg(station, data, period)
-      return data.windBearing
+      return data.windBearing.to_f
     end
 
     def get_cloud_cover_max(station, data, period)
@@ -155,7 +163,7 @@ module WeatherProviders
     end
 
     def get_cloud_cover_avg(station, data, period)
-      return data.cloudCover
+      return data.cloudCover.to_f
     end
 
     def get_humidity_max(station, data, period)
@@ -167,7 +175,7 @@ module WeatherProviders
     end
 
     def get_humidity_avg(station, data, period)
-      return data.humidity
+      return data.humidity.to_f
     end
 
     def get_pressure_in_millibars_max(station, data, period)
@@ -206,7 +214,7 @@ module WeatherProviders
     end
 
     def get_ozone_in_dobson_avg(station, data, period)
-      return data.ozone
+      return data.ozone.to_f
     end
 
     def get_dew_point_in_celcius_max(station, data, period)
@@ -219,7 +227,7 @@ module WeatherProviders
 
     def get_dew_point_in_celcius_avg(station, data, period)
       # depends on units=si
-      return data.dewPoint
+      return data.dewPoint.to_f
     end
 
   end

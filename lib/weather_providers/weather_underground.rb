@@ -46,8 +46,15 @@ module WeatherProviders
       return nil
     end
 
-    def get_precipitation_accumulation_in_centimers(station, data, period)
-      # depends on units=si
+    def get_precipitation_accumulation_in_centimers_max(station, data, period)
+      return nil
+    end
+
+    def get_precipitation_accumulation_in_centimers_min(station, data, period)
+      return nil
+    end
+
+    def get_precipitation_accumulation_in_centimers_avg(station, data, period)
       return nil
     end
 

@@ -4,8 +4,15 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-#  column: value
+
+kloosterzande:
+  name: Kloosterzande
+  region: zeeuwsvlaanderen
+  latitude: 51.36573
+  longitude: 4.010793
+
+heistaanzee:
+  name: Heist aan zee
+  region: zeeuwsvlaanderen
+  latitude: 51.334793
+  longitude: 3.248692

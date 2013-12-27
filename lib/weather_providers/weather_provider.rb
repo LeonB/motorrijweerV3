@@ -5,6 +5,53 @@ module WeatherProviders
     PERIOD_MINUTE = 1.minute
     PERIOD_HOUR = 1.hour
     PERIOD_DAY = 1.day
+    FIELDS = [
+      :from_datetime,
+      :to_datetime,
+      :description,
+      :weather_type,
+      :precipitation_type,
+      :precipitation_accumulation_in_centimers_max,
+      :precipitation_accumulation_in_centimers_min,
+      :precipitation_accumulation_in_centimers_avg,
+      :precipitation_probability,
+      :precipitation_in_mm_per_hour_max,
+      :precipitation_in_mm_per_hour_min,
+      :precipitation_in_mm_per_hour_avg,
+      :winter_precipitation_in_mm_per_hour_max,
+      :winter_precipitation_in_mm_per_hour_min,
+      :winter_precipitation_in_mm_per_hour_avg,
+      :temperature_in_celcius_max,
+      :temperature_in_celcius_min,
+      :temperature_in_celcius_avg,
+      :apparent_temperature_in_celcius_max,
+      :apparent_temperature_in_celcius_min,
+      :apparent_temperature_in_celcius_avg,
+      :wind_speed_in_meters_per_second_max,
+      :wind_speed_in_meters_per_second_min,
+      :wind_speed_in_meters_per_second_avg,
+      :wind_bearing_in_degrees_max,
+      :wind_bearing_in_degrees_min,
+      :wind_bearing_in_degrees_avg,
+      :cloud_cover_max,
+      :cloud_cover_min,
+      :cloud_cover_avg,
+      :humidity_max,
+      :humidity_min,
+      :humidity_avg,
+      :pressure_in_millibars_max,
+      :pressure_in_millibars_min,
+      :pressure_in_millibars_avg,
+      :visibility_in_meters_max,
+      :visibility_in_meters_min,
+      :visibility_in_meters_avg,
+      :ozone_in_dobson_max,
+      :ozone_in_dobson_min,
+      :ozone_in_dobson_avg,
+      :dew_point_in_celcius_max,
+      :dew_point_in_celcius_min,
+      :dew_point_in_celcius_avg
+    ]
 
     attr_accessor :results
 
@@ -27,6 +74,7 @@ module WeatherProviders
       puts "Updated #{self.results[:updated]} forecasts"
       puts "Skipped #{self.results[:skipped]} forecasts"
       puts "#{self.results[:failed]} forecasts failed saving"
+      return self.results
     end
 
     def get_api_data(station)

@@ -1,6 +1,6 @@
-require 'webmock/test_unit'
 require 'simplecov'
 SimpleCov.start 'rails'
+require 'webmock/test_unit'
 
 ENV["RAILS_ENV"] ||= "test"
 require File.expand_path('../../config/environment', __FILE__)
