@@ -62,8 +62,9 @@ end
 # gem 'debugger', group: [:development, :test]
 
 group :test do
-    gem 'simplecov', :require => false
-    gem 'webmock'
+  gem 'simplecov', :require => false
+  gem 'webmock'
+  gem 'turn'
 end
 
 # Read .env file for console and rake
