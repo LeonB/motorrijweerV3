@@ -68,7 +68,19 @@ module WeatherProviders
     def import_forecasts(station)
       self.send(:initialize)
       api_data = self.get_api_data(station)
-      yield(api_data)
+
+      self.collect_processed_minutely_data(station, api_data).each do |d|
+        self.save(d)
+      end if self.supported_periods.include? PERIOD_MINUTE
+
+      self.collect_processed_hourly_data(station, api_data).each do |d|
+        self.save(d)
+      end if self.supported_periods.include? PERIOD_HOUR
+
+      self.collect_processed_daily_data(station, api_data).each do |d|
+        self.save(d)
+      end if self.supported_periods.include? PERIOD_DAY
+
       Rails.logger.debug "Processed #{self.results[:processed]} forecasts"
       Rails.logger.debug "Created #{self.results[:created]} forecasts"
       Rails.logger.debug "Updated #{self.results[:updated]} forecasts"

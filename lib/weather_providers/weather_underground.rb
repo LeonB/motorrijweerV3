@@ -2,16 +2,11 @@ module WeatherProviders
   class WeatherUnderground < WeatherProviders::WeatherProvider
     PROVIDER = 'Weather Underground'
 
-    def import_forecasts(station)
-      super do |api_data|
-        collect_processed_hourly_data(station, api_data).each do |d|
-          self.save(d)
-        end
-
-        collect_processed_daily_data(station, api_data).each do |d|
-          self.save(d)
-        end
-      end
+    def supported_periods
+      [
+        WeatherProvider::PERIOD_HOUR,
+        WeatherProvider::PERIOD_DAY
+      ]
     end
 
     def get_api_data(station)

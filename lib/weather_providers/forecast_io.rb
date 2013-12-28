@@ -2,32 +2,29 @@ module WeatherProviders
   class ForecastIo < WeatherProviders::WeatherProvider
     PROVIDER = 'forecast.io'
 
-    def import_forecasts(station)
-      super do |api_data|
-        self.collect_processed_minutely_data(station, api_data).each do |d|
-          self.save(d)
-        end
-
-        self.collect_processed_hourly_data(station, api_data).each do |d|
-          self.save(d)
-        end
-
-        self.collect_processed_daily_data(station, api_data).each do |d|
-          self.save(d)
-        end
-      end
+    def supported_periods
+      [
+        WeatherProvider::PERIOD_HOUR,
+        WeatherProvider::PERIOD_DAY
+      ]
     end
 
-    def collect_processed_minutely_data(station, data)
-      return [] if not data.has_key?(:minutely)
-      Rails.logger.debug "#{ForecastIo::PROVIDER}: Fetching minutely data for #{station.name}"
-      minutely_data = []
-      data.minutely.data.each do |minutely|
-        d = self.convert_data(station, minutely, WeatherProvider::PERIOD_MINUTE)
-        minutely_data << d
-      end
-      return minutely_data
+    def get_api_data(station)
+      # https://api.forecast.io/forecast/9ccd69acf062e01564240edd8a71f3d2/51.423981,5.392537
+      return ForecastIO.forecast(station.latitude, station.longitude)
     end
+    cache_method :get_api_data, 60.minutes.to_i
+
+    # def collect_processed_minutely_data(station, data)
+      # return [] if not data.has_key?(:minutely)
+      # Rails.logger.debug "#{ForecastIo::PROVIDER}: Fetching minutely data for #{station.name}"
+      # minutely_data = []
+      # data.minutely.data.each do |minutely|
+        # d = self.convert_data(station, minutely, WeatherProvider::PERIOD_MINUTE)
+        # minutely_data << d
+      # end
+      # return minutely_data
+    # end
 
     def collect_processed_hourly_data(station, data)
       return [] if not data.has_key?(:hourly)
@@ -50,12 +47,6 @@ module WeatherProviders
       end
       return daily_data
     end
-
-    def get_api_data(station)
-      # https://api.forecast.io/forecast/9ccd69acf062e01564240edd8a71f3d2/51.423981,5.392537
-      return ForecastIO.forecast(station.latitude, station.longitude)
-    end
-    cache_method :get_api_data, 60.minutes.to_i
 
     def get_from_datetime(station, data, period)
       return Time.at(data.time).to_datetime
