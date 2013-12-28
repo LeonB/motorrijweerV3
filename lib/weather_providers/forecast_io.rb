@@ -4,30 +4,51 @@ module WeatherProviders
 
     def import_forecasts(station)
       super do |api_data|
-        if api_data.has_key?(:minutely)
-          puts "#{ForecastIo::PROVIDER}: Fetching minutely data for #{station.name}"
-          api_data.minutely.data.each do |minutely|
-            d = self.collect_data(station, minutely, WeatherProvider::PERIOD_MINUTE)
-            self.save(d)
-          end
+        self.collect_processed_minutely_data(station, api_data).each do |d|
+          self.save(d)
         end
 
-        if api_data.has_key?(:hourly)
-          puts "#{ForecastIo::PROVIDER}: Fetching hourly data for #{station.name}"
-          api_data.hourly.data.each do |hourly|
-            d = self.collect_data(station, hourly, WeatherProvider::PERIOD_HOUR)
-            self.save(d)
-          end
+        self.collect_processed_hourly_data(station, api_data).each do |d|
+          self.save(d)
         end
 
-        if api_data.has_key?(:daily)
-          puts "#{ForecastIo::PROVIDER}: Fetching daily data for #{station.name}"
-          api_data.daily.data.each do |daily|
-            d = self.collect_data(station, daily, WeatherProvider::PERIOD_DAY)
-            self.save(d)
-          end
+        self.collect_processed_daily_data(station, api_data).each do |d|
+          self.save(d)
         end
       end
+    end
+
+    def collect_processed_minutely_data(station, data)
+      return [] if not data.has_key?(:minutely)
+      Rails.logger.debug "#{ForecastIo::PROVIDER}: Fetching minutely data for #{station.name}"
+      minutely_data = []
+      data.minutely.data.each do |minutely|
+        d = self.convert_data(station, minutely, WeatherProvider::PERIOD_MINUTE)
+        minutely_data << d
+      end
+      return minutely_data
+    end
+
+    def collect_processed_hourly_data(station, data)
+      return [] if not data.has_key?(:hourly)
+      Rails.logger.debug "#{ForecastIo::PROVIDER}: Fetching hourly data for #{station.name}"
+      hourly_data = []
+      data.hourly.data.each do |hourly|
+        d = self.convert_data(station, hourly, WeatherProvider::PERIOD_HOUR)
+        hourly_data << d
+      end
+      return hourly_data
+    end
+
+    def collect_processed_daily_data(station, data)
+      return [] if not data.has_key?(:daily)
+      Rails.logger.debug "#{ForecastIo::PROVIDER}: Fetching daily data for #{station.name}"
+      daily_data = []
+      data.daily.data.each do |daily|
+        d = self.convert_data(station, daily, WeatherProvider::PERIOD_DAY)
+        daily_data << d
+      end
+      return daily_data
     end
 
     def get_api_data(station)

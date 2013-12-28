@@ -1,10 +1,16 @@
 require 'simplecov'
 SimpleCov.start 'rails'
 require 'webmock/test_unit'
+require 'turn/autorun'
 
 ENV["RAILS_ENV"] ||= "test"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
+
+Turn.config do |c|
+  # c.format = :outline
+  c.ansi = true
+end
 
 class ActiveSupport::TestCase
   ActiveRecord::Migration.check_pending!

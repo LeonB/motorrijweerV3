@@ -4,13 +4,12 @@ module WeatherProviders
 
     def import_forecasts(station)
       super do |api_data|
-        if api_data.has_key?('hourly_forecast')
-          puts "#{WeatherUnderground::PROVIDER}: Fetching hourly data for #{station.name}"
-          api_data['hourly_forecast'].each do |hourly|
-            # puts hourly
-            d = self.collect_data(station, hourly, WeatherProvider::PERIOD_HOUR)
-            self.save(d)
-          end
+        collect_processed_hourly_data(station, api_data).each do |d|
+          self.save(d)
+        end
+
+        collect_processed_daily_data(station, api_data).each do |d|
+          self.save(d)
         end
       end
     end
@@ -22,6 +21,28 @@ module WeatherProviders
         data = w_api.hourly10day_for("#{station.latitude},#{station.longitude}")
         return data
       end
+    end
+
+    def collect_processed_hourly_data(station, api_data)
+      return [] if not api_data.has_key?('hourly_forecast')
+      Rails.logger.debug "#{WeatherUnderground::PROVIDER}: Fetching hourly data for #{station.name}"
+      hourly_data = []
+      api_data['hourly_forecast'].each do |hourly|
+        d = self.convert_data(station, hourly, WeatherProvider::PERIOD_HOUR)
+        hourly_data << d
+      end
+      return hourly_data
+    end
+
+    def collect_processed_daily_data(station, api_data)
+      return [] if not api_data.has_key?('daily_forecast')
+      Rails.logger.debug "#{WeatherUnderground::PROVIDER}: Fetching daily data for #{station.name}"
+      daily_data = []
+      api_data['daily_forecast'].each do |daily|
+        d = self.convert_data(station, daily, WeatherProvider::PERIOD_DAY)
+        daily_data << d
+      end
+      return daily_data
     end
 
     def get_from_datetime(station, data, period)
@@ -59,7 +80,7 @@ module WeatherProviders
     end
 
     def get_precipitation_probability(station, data, period)
-      return data['pop']['metric'].to_f
+      return data['pop'].to_f
     end
 
     def get_precipitation_in_mm_per_hour_max(station, data, period)
@@ -133,7 +154,7 @@ module WeatherProviders
     end
 
     def get_wind_bearing_in_degrees_avg(station, data, period)
-      return data['wdir']['metric'].to_f
+      return data['wdir']['degrees'].to_f
     end
 
     def get_cloud_cover_max(station, data, period)

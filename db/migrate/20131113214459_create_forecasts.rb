@@ -8,7 +8,9 @@ class CreateForecasts < ActiveRecord::Migration
       t.string     :description
       t.string     :weather_type
       t.string     :precipitation_type
-      t.decimal    :precipitation_accumulation_in_centimers, :precison => 4
+      t.decimal    :precipitation_accumulation_in_centimers_max, :precision => 5, :scale => 4
+      t.decimal    :precipitation_accumulation_in_centimers_min, :precision => 5, :scale => 4
+      t.decimal    :precipitation_accumulation_in_centimers_avg, :precision => 5, :scale => 4
       t.decimal    :precipitation_probability, :precision => 5, :scale => 2
       t.decimal    :precipitation_in_mm_per_hour_max, :precision => 5, :scale => 4
       t.decimal    :precipitation_in_mm_per_hour_min, :precision => 5, :scale => 4

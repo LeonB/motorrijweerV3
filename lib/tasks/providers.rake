@@ -10,6 +10,8 @@ namespace :providers do
   namespace :all do
     desc "Import all forecasts"
     task :forecast => :environment do
+      Rails.logger = Logger.new(STDOUT)
+
       providers.each_with_index do |(provider_name, provider_class), i|
         provider = provider_class.constantize.new()
         stations = Station.all
@@ -36,6 +38,8 @@ namespace :providers do
     namespace :"#{namespace_name}" do
       desc "Import #{provider_name} forecasts"
       task :forecast => :environment do
+        Rails.logger = Logger.new(STDOUT)
+
         provider = provider_class.constantize.new()
         stations = Station.all
         stations.each do |station|

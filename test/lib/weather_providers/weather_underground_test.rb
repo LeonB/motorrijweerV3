@@ -14,10 +14,6 @@ class WeatherProviders::WeatherUndergroundTest < ActiveSupport::TestCase
       to_return(:body => File.new('test/fixtures/http_requests/weather_underground/hourly10day/kloosterzande.json'))
   end
 
-  def collect_hourly_data(station, api_data)
-    @provider.collect_data(station, api_data['hourly_forecast'].first, WeatherProviders::WeatherProvider::PERIOD_HOUR)
-  end
-
   test "get_api_date should contain hourly info" do
     station = stations(:kloosterzande)
     api_data = @provider.get_api_data(station)

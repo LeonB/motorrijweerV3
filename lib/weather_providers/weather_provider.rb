@@ -69,11 +69,11 @@ module WeatherProviders
       self.send(:initialize)
       api_data = self.get_api_data(station)
       yield(api_data)
-      puts "Processed #{self.results[:processed]} forecasts"
-      puts "Created #{self.results[:created]} forecasts"
-      puts "Updated #{self.results[:updated]} forecasts"
-      puts "Skipped #{self.results[:skipped]} forecasts"
-      puts "#{self.results[:failed]} forecasts failed saving"
+      Rails.logger.debug "Processed #{self.results[:processed]} forecasts"
+      Rails.logger.debug "Created #{self.results[:created]} forecasts"
+      Rails.logger.debug "Updated #{self.results[:updated]} forecasts"
+      Rails.logger.debug "Skipped #{self.results[:skipped]} forecasts"
+      Rails.logger.debug "#{self.results[:failed]} forecasts failed saving"
       return self.results
     end
 
@@ -82,7 +82,7 @@ module WeatherProviders
     end
     cache_method :get_api_data, 60.minutes.to_i
 
-    def collect_data(*args)
+    def convert_data(*args)
       data = {}
 
       Forecast.column_names.each do |column_name|
@@ -137,11 +137,11 @@ module WeatherProviders
           # data[0] = data[0].to_s
           # data[1] = data[1].to_s
         # end
-        # puts changes
+        # Rails.logger.debug changes
       end
 
       if not f.save
-        puts "Could not save forecast. Errors: #{f.errors.messages}"
+        Rails.logger.debug "Could not save forecast. Errors: #{f.errors.messages}"
         self.results[:failed] += 1
         return f
       end

@@ -4,8 +4,163 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-#  column: value
+
+one:
+  from_datetime: 2014-01-01 00:00:00 UTC
+  to_datetime:  2014-01-01 01:00:00 UTC
+  station: kloosterzande
+  provider: Weather Underground
+  description: Gedeeltelijk bewolkt
+  weather_type: Gedeeltelijk bewolkt
+  provider: Weather Underground
+  description: Gedeeltelijk bewolkt
+  weather_type: Gedeeltelijk bewolkt
+  precipitation_probability: 0.0
+  precipitation_in_mm_per_hour_avg: 0.0
+  winter_precipitation_in_mm_per_hour_avg: 0.0
+  temperature_in_celcius_avg: 6.0
+  apparent_temperature_in_celcius_avg: 6.0
+  wind_speed_in_meters_per_second_avg: 7.222222222222222
+  wind_bearing_in_degrees_avg: 223
+  cloud_cover_avg: 55.0
+  humidity_avg: 77.0
+  pressure_in_millibars_avg: 995.0
+  dew_point_in_celcius_avg: 2.0
+
+two:
+  from_datetime: 2014-01-01 00:00:00 UTC
+  to_datetime:  2014-01-01 01:00:00 UTC
+  station: kloosterzande
+  provider: Weather Underground
+
+three:
+  from_datetime: 2014-01-01 00:00:00 UTC
+  to_datetime:  2014-01-01 01:00:00 UTC
+  station: kloosterzande
+  provider: Weather Underground
+
+four:
+  from_datetime: 2014-01-01 00:00:00 UTC
+  to_datetime:  2014-01-01 01:00:00 UTC
+  station: kloosterzande
+  provider: Weather Underground
+
+five:
+  from_datetime: 2014-01-01 00:00:00 UTC
+  to_datetime:  2014-01-01 01:00:00 UTC
+  station: kloosterzande
+  provider: Weather Underground
+
+six:
+  from_datetime: 2014-01-01 00:00:00 UTC
+  to_datetime:  2014-01-01 01:00:00 UTC
+  station: kloosterzande
+  provider: Weather Underground
+
+seven:
+  from_datetime: 2014-01-01 00:00:00 UTC
+  to_datetime:  2014-01-01 01:00:00 UTC
+  station: kloosterzande
+  provider: Weather Underground
+
+eight:
+  from_datetime: 2014-01-01 00:00:00 UTC
+  to_datetime:  2014-01-01 01:00:00 UTC
+  station: kloosterzande
+  provider: Weather Underground
+
+nine:
+  from_datetime: 2014-01-01 00:00:00 UTC
+  to_datetime:  2014-01-01 01:00:00 UTC
+  station: kloosterzande
+  provider: Weather Underground
+
+ten:
+  from_datetime: 2014-01-01 00:00:00 UTC
+  to_datetime:  2014-01-01 01:00:00 UTC
+  station: kloosterzande
+  provider: Weather Underground
+
+eleven:
+  from_datetime: 2014-01-01 00:00:00 UTC
+  to_datetime:  2014-01-01 01:00:00 UTC
+  station: kloosterzande
+  provider: Weather Underground
+
+twelve:
+  from_datetime: 2014-01-01 00:00:00 UTC
+  to_datetime:  2014-01-01 01:00:00 UTC
+  station: kloosterzande
+  provider: Weather Underground
+
+thirteen:
+  from_datetime: 2014-01-01 00:00:00 UTC
+  to_datetime:  2014-01-01 01:00:00 UTC
+  station: kloosterzande
+  provider: Weather Underground
+
+fourteen:
+  from_datetime: 2014-01-01 00:00:00 UTC
+  to_datetime:  2014-01-01 01:00:00 UTC
+  station: kloosterzande
+  provider: Weather Underground
+
+fifteen:
+  from_datetime: 2014-01-01 00:00:00 UTC
+  to_datetime:  2014-01-01 01:00:00 UTC
+  station: kloosterzande
+  provider: Weather Underground
+
+sixteen:
+  from_datetime: 2014-01-01 00:00:00 UTC
+  to_datetime:  2014-01-01 01:00:00 UTC
+  station: kloosterzande
+  provider: Weather Underground
+
+seventeen:
+  from_datetime: 2014-01-01 00:00:00 UTC
+  to_datetime:  2014-01-01 01:00:00 UTC
+  station: kloosterzande
+  provider: Weather Underground
+
+eighteen:
+  from_datetime: 2014-01-01 00:00:00 UTC
+  to_datetime:  2014-01-01 01:00:00 UTC
+  station: kloosterzande
+  provider: Weather Underground
+
+nineteen:
+  from_datetime: 2014-01-01 00:00:00 UTC
+  to_datetime:  2014-01-01 01:00:00 UTC
+  station: kloosterzande
+  provider: Weather Underground
+
+twenty:
+  from_datetime: 2014-01-01 00:00:00 UTC
+  to_datetime:  2014-01-01 01:00:00 UTC
+  station: kloosterzande
+  provider: Weather Underground
+
+twentyone:
+  from_datetime: 2014-01-01 00:00:00 UTC
+  to_datetime:  2014-01-01 01:00:00 UTC
+  station: kloosterzande
+  provider: Weather Underground
+
+twentytwo:
+  from_datetime: 2014-01-01 00:00:00 UTC
+  to_datetime:  2014-01-01 01:00:00 UTC
+  station: kloosterzande
+  provider: Weather Underground
+
+twentythree:
+  from_datetime: 2014-01-01 00:00:00 UTC
+  to_datetime:  2014-01-01 01:00:00 UTC
+  station: kloosterzande
+  provider: Weather Underground
+
+twentyfour:
+  from_datetime: 2014-01-01 00:00:00 UTC
+  to_datetime:  2014-01-01 01:00:00 UTC
+  station: kloosterzande
+  provider: Weather Underground
