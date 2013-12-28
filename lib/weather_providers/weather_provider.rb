@@ -65,18 +65,22 @@ module WeatherProviders
       }
     end
 
+    # Collect api data, split it in periods and save per period
     def import_forecasts(station)
       self.send(:initialize)
       api_data = self.get_api_data(station)
 
+      # Check for minutely data
       self.collect_processed_minutely_data(station, api_data).each do |d|
         self.save(d)
       end if self.supported_periods.include? PERIOD_MINUTE
 
+      # Check for hourly data
       self.collect_processed_hourly_data(station, api_data).each do |d|
         self.save(d)
       end if self.supported_periods.include? PERIOD_HOUR
 
+      # Check for daily data
       self.collect_processed_daily_data(station, api_data).each do |d|
         self.save(d)
       end if self.supported_periods.include? PERIOD_DAY
@@ -89,11 +93,14 @@ module WeatherProviders
       return self.results
     end
 
+    # Delegates the collecting of api_data to child classes
     def get_api_data(station)
       yield
     end
     cache_method :get_api_data, 60.minutes.to_i
 
+    # Convert api_data to AR data based on the available methods in that
+    # weatherprovider class
     def convert_data(*args)
       data = {}
 
