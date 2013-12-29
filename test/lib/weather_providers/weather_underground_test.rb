@@ -10,7 +10,7 @@ class WeatherProviders::WeatherUndergroundTest < ActiveSupport::TestCase
   end
 
   def register_api_url_stubs
-    WebMock::stub_request(:get, 'http://api.wunderground.com/api/924da7bebb43ef5a/hourly10day/lang:NL/q/51.36573,4.010793.json').
+    WebMock::stub_request(:get, "http://api.wunderground.com/api/#{ENV['WUNDERGROUND_API_KEY']}/hourly10day/lang:NL/q/51.36573,4.010793.json").
       to_return(:body => File.new('test/fixtures/http_requests/weather_underground/hourly10day/kloosterzande.json'))
   end
 
