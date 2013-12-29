@@ -25,6 +25,7 @@ module WeatherProviders::Abstract extend ActiveSupport::Testing::Declarative
 
     assert item[:from_datetime].is_a?(DateTime)
     assert item[:to_datetime].is_a?(DateTime)
+    assert item[:period].in? ['minute', 'hour', 'day']
     assert item[:description].nil? == false
     assert item[:weather_type].nil? == false
     assert (item[:precipitation_type].is_a?(String) or

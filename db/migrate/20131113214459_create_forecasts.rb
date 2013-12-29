@@ -3,6 +3,7 @@ class CreateForecasts < ActiveRecord::Migration
     create_table :forecasts do |t|
       t.datetime   :from_datetime
       t.datetime   :to_datetime
+      t.string     :period
       t.integer    :station_id
       t.string     :provider
       t.string     :description

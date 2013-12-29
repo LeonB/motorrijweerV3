@@ -8,6 +8,7 @@ module WeatherProviders
     FIELDS = [
       :from_datetime,
       :to_datetime,
+      :period,
       :description,
       :weather_type,
       :precipitation_type,
@@ -114,6 +115,16 @@ module WeatherProviders
       end
 
       return data
+    end
+
+    def get_period(station, data, period)
+      if period == self.class::PERIOD_MINUTE
+        return 'minute'
+      elsif period == self.class::PERIOD_HOUR
+        return 'hour'
+      elsif period == self.class::PERIOD_DAY
+        return 'day'
+      end
     end
 
     def get_station_id(station, data, period)
