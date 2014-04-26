@@ -79,3 +79,6 @@ gem 'wunderground'
 gem 'cache_method'
 # A unit handling library for ruby
 gem 'ruby-units'
+
+# Use safe yaml parsing
+gem 'safe_yaml'
