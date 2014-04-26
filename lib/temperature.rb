@@ -40,6 +40,10 @@ class Temperature
       return self.heat_index(t, r)
     end
 
-    wc = self.wind_chill(t, a)
+    if t <= 40 and a >= 3
+      return self.wind_chill(t, a)
+    end
+
+    return t
   end
 end

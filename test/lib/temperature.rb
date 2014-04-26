@@ -63,4 +63,54 @@ class TemperatureTest < ActiveSupport::TestCase
       assert_equal Temperature.heat_index(k.first, k.last).round(2), v
     end
   end
+
+  test "apparent_temperature should use heat_index when t >= 80 and r >= 0.4" do
+    t = 80
+    a = 0
+    r = 0.4
+    assert_equal(
+      Temperature.heat_index(t, r),
+      Temperature.apparent_temperature(t, a, r)
+    )
+  end
+
+  test "apparent_temperature should use air temperature when t >= 80 and r < 0.4" do
+    t = 80
+    a = 0
+    r = 0.3
+    assert_equal(
+      t,
+      Temperature.apparent_temperature(t, a, r)
+    )
+  end
+
+  test "apparent_temperature should use wind_chill when t <= 40 and a >= 3" do
+    t = 40
+    a = 3
+    r = 0.4
+    assert_equal(
+      Temperature.wind_chill(t, a),
+      Temperature.apparent_temperature(t, a, r)
+    )
+  end
+
+  test "apparent_temperature should use air temperature when t <= 40 and a < 3" do
+    t = 80
+    a = 2
+    r = 0
+    assert_equal(
+      t,
+      Temperature.apparent_temperature(t, a, r)
+    )
+  end
+
+  test "apparent_temperature should use air temperature when t == 60" do
+    t = 60
+    a = 99
+    r = 1.0
+    assert_equal(
+      t,
+      Temperature.apparent_temperature(t, a, r)
+    )
+  end
 end
