@@ -26,4 +26,8 @@ MotorrijweerV3::Application.configure do
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
   config.assets.debug = true
+
+  # Reload local gems
+  RequireReloader.watch_local_gems!
+
 end
