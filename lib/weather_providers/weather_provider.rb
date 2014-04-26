@@ -195,13 +195,13 @@ module WeatherProviders
 
       # Check some attributes which can also be calculated
       # So if they are empty: calculate them and append them to the object
-      if f.apparent_temperature_in_celcius_max.nil?
+      if data['apparent_temperature_in_celcius_max'].nil?
         f.apparent_temperature_in_celcius_max = f.calculate_apparent_temperature_in_celcius_max
       end
-      if f.apparent_temperature_in_celcius_min.nil?
+      if data['apparent_temperature_in_celcius_min'].nil?
         f.apparent_temperature_in_celcius_min = f.calculate_apparent_temperature_in_celcius_min
       end
-      if f.apparent_temperature_in_celcius_avg.nil?
+      if data['apparent_temperature_in_celcius_avg'].nil?
         f.apparent_temperature_in_celcius_avg = f.calculate_apparent_temperature_in_celcius_avg
       end
 
