@@ -8,7 +8,7 @@ class Temperature
     c3 = 35.75
     c4 = 0.16
     c5 = 0.4275
-    c1 + c2*t -c3*a**c4 + c5*t*a**c4
+    wind_chill = c1 + c2*t -c3*a**c4 + c5*t*a**c4
   end
 
   # * +t+ - temperature in F
