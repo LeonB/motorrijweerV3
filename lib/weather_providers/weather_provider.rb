@@ -141,20 +141,9 @@ module WeatherProviders
     def save(data)
       self.results[:processed] += 1
 
-      f = Forecast.where(
-        :station_id => data[:station_id],
-        :from_datetime => data[:from_datetime],
-        :to_datetime => data[:to_datetime],
-        :provider => data[:provider]
-      ).first_or_initialize
+      # Create a forecast from the data
+      f = self.forecast_from_data(data)
 
-      attributes = data.each do |attr, value|
-          next if attr == Forecast.primary_key
-          next if f.send(:all_timestamp_attributes).include?(attr.to_sym)
-          Forecast.column_names.include?(attr.to_s)
-      end
-
-      f.attributes = attributes
       new_record = f.new_record?
       changed = f.changed?
 
@@ -180,6 +169,40 @@ module WeatherProviders
         self.results[:created] += 1
       elsif changed
         self.results[:updated] += 1
+      end
+
+      return f
+    end
+
+    def forecast_from_data(data)
+      # Find forecast or create a new one
+      f = Forecast.where(
+        :station_id => data[:station_id],
+        :from_datetime => data[:from_datetime],
+        :to_datetime => data[:to_datetime],
+        :provider => data[:provider]
+      ).first_or_initialize
+
+      # Collect all attributes that match a field in the forecast model
+      attributes = data.each do |attr, value|
+          next if attr == Forecast.primary_key
+          next if f.send(:all_timestamp_attributes).include?(attr.to_sym)
+          Forecast.column_names.include?(attr.to_s)
+      end
+
+      # Add collected attributes to forecast
+      f.attributes = attributes
+
+      # Check some attributes which can also be calculated
+      # So if they are empty: calculate them and append them to the object
+      if f.apparent_temperature_in_celcius_max.nil?
+        f.apparent_temperature_in_celcius_max = f.calculate_apparent_temperature_in_celcius_max
+      end
+      if f.apparent_temperature_in_celcius_min.nil?
+        f.apparent_temperature_in_celcius_min = f.calculate_apparent_temperature_in_celcius_min
+      end
+      if f.apparent_temperature_in_celcius_avg.nil?
+        f.apparent_temperature_in_celcius_avg = f.calculate_apparent_temperature_in_celcius_avg
       end
 
       return f
