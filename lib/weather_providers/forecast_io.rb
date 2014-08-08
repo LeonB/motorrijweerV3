@@ -30,6 +30,8 @@ module WeatherProviders
       return [] if not data.has_key?(:hourly)
       Rails.logger.debug "#{ForecastIo::PROVIDER}: Fetching hourly data for #{station.name}"
       hourly_data = []
+
+      Rails.logger.debug "#{ForecastIo::PROVIDER}: Parsing hourly data for #{station.name} (#{data.hourly.data.size})"
       data.hourly.data.each do |hourly|
         d = self.convert_data(station, hourly, WeatherProvider::PERIOD_HOUR)
         hourly_data << d
@@ -41,6 +43,8 @@ module WeatherProviders
       return [] if not data.has_key?(:daily)
       Rails.logger.debug "#{ForecastIo::PROVIDER}: Fetching daily data for #{station.name}"
       daily_data = []
+
+      Rails.logger.debug "#{ForecastIo::PROVIDER}: Parsing daily data for #{station.name}"
       data.daily.data.each do |daily|
         d = self.convert_data(station, daily, WeatherProvider::PERIOD_DAY)
         daily_data << d
