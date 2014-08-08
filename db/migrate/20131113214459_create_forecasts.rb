@@ -4,7 +4,7 @@ class CreateForecasts < ActiveRecord::Migration
       t.datetime   :from_datetime
       t.datetime   :to_datetime
       t.string     :period
-      t.integer    :station_id
+      t.belongs_to :station
       t.string     :provider
       t.string     :description
       t.string     :weather_type
@@ -51,6 +51,11 @@ class CreateForecasts < ActiveRecord::Migration
       t.decimal    :dew_point_in_celcius_avg, :precision => 5, :scale => 2
       # t.decimal    :precipAccumulation
       t.timestamps
+
+      t.index       :from_datetime
+      t.index       :to_datetime
+      t.index       :station_id
+      t.index       :provider
     end
   end
 end

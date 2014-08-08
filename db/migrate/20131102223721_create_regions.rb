@@ -8,6 +8,8 @@ class CreateRegions < ActiveRecord::Migration
       t.integer    :rgt
       t.integer    :depth # this is optional.
       t.timestamps
+
+      t.index      :parent_id
     end
   end
 end

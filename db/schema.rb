@@ -66,6 +66,11 @@ ActiveRecord::Schema.define(version: 20131113214459) do
     t.datetime "updated_at"
   end
 
+  add_index "forecasts", ["from_datetime"], name: "index_forecasts_on_from_datetime"
+  add_index "forecasts", ["provider"], name: "index_forecasts_on_provider"
+  add_index "forecasts", ["station_id"], name: "index_forecasts_on_station_id"
+  add_index "forecasts", ["to_datetime"], name: "index_forecasts_on_to_datetime"
+
   create_table "regions", force: true do |t|
     t.string   "name"
     t.string   "code"
@@ -77,6 +82,8 @@ ActiveRecord::Schema.define(version: 20131113214459) do
     t.datetime "updated_at"
   end
 
+  add_index "regions", ["parent_id"], name: "index_regions_on_parent_id"
+
   create_table "stations", force: true do |t|
     t.string   "name"
     t.integer  "region_id"
@@ -87,5 +94,6 @@ ActiveRecord::Schema.define(version: 20131113214459) do
   end
 
   add_index "stations", ["latitude", "longitude"], name: "index_stations_on_latitude_and_longitude"
+  add_index "stations", ["region_id"], name: "index_stations_on_region_id"
 
 end
