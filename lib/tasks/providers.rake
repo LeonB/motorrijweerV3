@@ -4,7 +4,8 @@
 namespace :providers do
   providers = {
     'forecast.io' => 'WeatherProviders::ForecastIo',
-    'Weather Underground' => 'WeatherProviders::WeatherUnderground'
+    'Weather Underground' => 'WeatherProviders::WeatherUnderground',
+    'Yr.no' => 'WeatherProviders::YrNo'
   }
 
   namespace :all do
@@ -51,33 +52,5 @@ namespace :providers do
       end # task
     end # namespace
   end # each
-
-  # namespace :forecast_io do
-    # desc "Import forecast.io forecasts"
-    # task :forecast => :environment do
-      # provider = WeatherProviders::ForecastIo.new()
-      # stations = Station.all
-      # stations.each do |station|
-        # provider.forecasts(station)
-        # if not station == stations.last
-          # puts '------------------------'
-        # end
-      # end
-    # end
-  # end
-
-  # namespace :wunderground do
-    # desc "Import weather underground forecasts"
-    # task :forecast => :environment do
-      # provider = WeatherProviders::WeatherUnderground.new()
-      # stations = Station.all
-      # stations.each do |station|
-        # provider.forecasts(station)
-        # if not station == stations.last
-          # puts '------------------------'
-        # end
-      # end
-    # end
-  # end
 
 end
