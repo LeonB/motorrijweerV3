@@ -1,11 +1,14 @@
-module WeatherProviders
-  class YrNo < WeatherProviders::WeatherProvider
+# work around bug in YrNo library
+require 'multi_xml'
+
+module WeatherProviders::YrNo
+  class Forecasts < WeatherProviders::Forecasts
     PROVIDER = 'yr.no'
 
     def supported_periods
       [
-        WeatherProvider::PERIOD_HOUR,
-        WeatherProvider::PERIOD_DAY
+        PERIOD_HOUR,
+        PERIOD_DAY
       ]
     end
 
@@ -17,7 +20,7 @@ module WeatherProviders
     def collect_processed_hourly_data(station, data)
       return [] if not data.has_key?(:weatherdata)
 
-      Rails.logger.debug "#{YrNo::PROVIDER}: Fetching hourly data for #{station.name}"
+      Rails.logger.debug "#{PROVIDER}: Fetching hourly data for #{station.name}"
 
       # Collect all data points and order them by hour
       from_times = data.weatherdata.product.time.map { |p| p.from.to_datetime }.uniq.sort
@@ -34,9 +37,9 @@ module WeatherProviders
 
       hourly_data = []
 
-      Rails.logger.debug "#{ForecastIo::PROVIDER}: Parsing hourly data for #{station.name} (#{data.hourly.data.size})"
+      Rails.logger.debug "#{PROVIDER}: Parsing hourly data for #{station.name} (#{points.size})"
       points.each do |t, hourly|
-        d = self.convert_data(station, hourly, WeatherProvider::PERIOD_HOUR)
+        d = self.convert_data(station, hourly, PERIOD_HOUR)
         hourly_data << d
       end
       return hourly_data
@@ -44,12 +47,12 @@ module WeatherProviders
 
     def collect_processed_daily_data(station, data)
       return [] if not data.has_key?(:daily)
-      Rails.logger.debug "#{ForecastIo::PROVIDER}: Fetching daily data for #{station.name}"
+      Rails.logger.debug "#{PROVIDER}: Fetching daily data for #{station.name}"
       daily_data = []
 
-      Rails.logger.debug "#{ForecastIo::PROVIDER}: Parsing daily data for #{station.name} (#{data.hourly.data.size})"
+      Rails.logger.debug "#{PROVIDER}: Parsing daily data for #{station.name} (#{points.size})"
       data.daily.data.each do |daily|
-        d = self.convert_data(station, daily, WeatherProvider::PERIOD_DAY)
+        d = self.convert_data(station, daily, PERIOD_DAY)
         daily_data << d
       end
       return daily_data

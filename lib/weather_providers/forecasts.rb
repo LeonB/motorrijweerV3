@@ -1,7 +1,7 @@
 require 'ruby-units'
 
 module WeatherProviders
-  class WeatherProvider
+  class Forecasts
     PERIOD_MINUTE = 1.minute
     PERIOD_HOUR = 1.hour
     PERIOD_DAY = 1.day

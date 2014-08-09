@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131113214459) do
+ActiveRecord::Schema.define(version: 20140808194818) do
 
   create_table "forecasts", force: true do |t|
     t.datetime "from_datetime"
@@ -70,6 +70,35 @@ ActiveRecord::Schema.define(version: 20131113214459) do
   add_index "forecasts", ["provider"], name: "index_forecasts_on_provider"
   add_index "forecasts", ["station_id"], name: "index_forecasts_on_station_id"
   add_index "forecasts", ["to_datetime"], name: "index_forecasts_on_to_datetime"
+
+  create_table "observations", force: true do |t|
+    t.datetime "from_datetime"
+    t.datetime "to_datetime"
+    t.string   "period"
+    t.integer  "station_id"
+    t.string   "provider"
+    t.string   "description"
+    t.string   "precipitation_type"
+    t.decimal  "precipitation_in_mm_per_hour",    precision: 5, scale: 4
+    t.decimal  "precipitation_probability",       precision: 5, scale: 2
+    t.decimal  "temperature_in_celcius",          precision: 5, scale: 2
+    t.decimal  "apparent_temperature_in_celcius", precision: 5, scale: 2
+    t.decimal  "humidity",                        precision: 5, scale: 2
+    t.decimal  "wind_speed_in_meters_per_second", precision: 5, scale: 2
+    t.integer  "wind_bearing_in_degrees"
+    t.decimal  "visibility_in_meters",            precision: 5, scale: 2
+    t.decimal  "cloud_cover",                     precision: 5, scale: 2
+    t.decimal  "pressure_in_millibars",           precision: 5, scale: 2
+    t.decimal  "ozone_in_dobson",                 precision: 5, scale: 2
+    t.decimal  "dew_point_in_celcius",            precision: 5, scale: 2
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "observations", ["from_datetime"], name: "index_observations_on_from_datetime"
+  add_index "observations", ["provider"], name: "index_observations_on_provider"
+  add_index "observations", ["station_id"], name: "index_observations_on_station_id"
+  add_index "observations", ["to_datetime"], name: "index_observations_on_to_datetime"
 
   create_table "regions", force: true do |t|
     t.string   "name"
