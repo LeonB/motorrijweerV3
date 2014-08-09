@@ -2,6 +2,7 @@ require 'ruby-units'
 
 module WeatherProviders
   class Observations
+    PERIOD_MINUTE = 1.minute
     PERIOD_HOUR = 1.hour
     PERIOD_DAY = 1.day
 
@@ -21,6 +22,11 @@ module WeatherProviders
     def import_observations(station, date)
       self.send(:initialize)
       api_data = self.get_api_data(station, date)
+
+      # Check for minutely data
+      self.collect_processed_minutely_data(station, api_data).each do |d|
+        self.save(d)
+      end if self.supported_periods.include? PERIOD_MINUTE
 
       # Check for hourly data
       self.collect_processed_hourly_data(station, api_data).each do |d|

@@ -34,7 +34,7 @@ module WeatherProviders::ForecastIo
       Rails.logger.debug "#{PROVIDER}: Fetching daily data for #{station.name}"
       daily_data = []
 
-      Rails.logger.debug "#{PROVIDER}: Parsing daily data for #{station.name}"
+      Rails.logger.debug "#{PROVIDER}: Parsing daily data for #{station.name} (#{data.daily.data.size})"
       data.daily.data.each do |daily|
         d = self.convert_data(station, daily, PERIOD_DAY)
         daily_data << d
@@ -117,21 +117,5 @@ module WeatherProviders::ForecastIo
       # depends on units=si
       return data.dewPoint.to_f
     end
-
-      # t.decimal    :precipitation_intensity_in_dbz, :precision => 5, :scale => 4
-      # t.decimal    :precipitation_probability, :precision => 5, :scale => 2
-      # t.decimal    :temperature_in_celcius, :precision => 5, :scale => 2
-      # t.decimal    :apparent_temperature_in_celcius, :precision => 5, :scale => 2
-      # t.decimal    :humidity, :precision => 5, :scale => 2
-      # t.decimal    :wind_speed_in_meters_per_second, :precision => 5, :scale => 2
-      # t.integer    :wind_bearing_in_degrees
-      # t.decimal    :visibility_in_meters, :precision => 5, :scale => 2
-      # t.decimal    :cloud_cover, :precision => 5, :scale => 2
-      # t.decimal    :pressure_in_millibars, :precision => 5, :scale => 2
-      # t.decimal    :ozone_in_dobson, :precision => 5, :scale => 2
-      # t.decimal    :dew_point_in_celcius, :precision => 5, :scale => 2
-
-
   end
 end
-
