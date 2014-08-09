@@ -36,7 +36,7 @@ module WeatherProviders::ForecastIo
 
       Rails.logger.debug "#{PROVIDER}: Parsing daily data for #{station.name}"
       data.daily.data.each do |daily|
-        d = self.convert_data(station, daily, WeatherProvider::PERIOD_DAY)
+        d = self.convert_data(station, daily, PERIOD_DAY)
         daily_data << d
       end
       return daily_data
