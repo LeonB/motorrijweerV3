@@ -1,6 +1,3 @@
-# work around bug in YrNo library
-require 'multi_xml'
-
 module WeatherProviders::YrNo
   class Forecasts < WeatherProviders::Forecasts
     PROVIDER = 'yr.no'
