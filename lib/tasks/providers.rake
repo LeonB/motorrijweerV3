@@ -30,14 +30,21 @@ namespace :providers do
 
   namespace :all do
     desc "Import all observations"
-    task :observations => :environment do
+    task :observations, [:date] => [:environment] do |t, args|
       Rails.logger = Logger.new(STDOUT)
+
+      if not args[:date]
+        Rails.logger.fatal "Please specify a date: rake all:observations:#{t}[YYYY-MM-DD]"
+        exit
+      else
+        date = Date.parse(args[:date])
+      end
 
       providers.each_with_index do |(provider_name, provider_class), i|
         provider = "#{provider_class}::Observations".constantize.new()
         stations = Station.all
         stations.each do |station|
-          provider.import_observations(station)
+          provider.import_observations(station, date)
           if not station == stations.last
             # Mark the end of a station
             puts '------------------------'
