@@ -69,7 +69,9 @@ module WeatherProviders
     end
 
     def get_period(station, data, period)
-      if period == self.class::PERIOD_HOUR
+      if period == self.class::PERIOD_MINUTE
+        return 'minute'
+      elsif period == self.class::PERIOD_HOUR
         return 'hour'
       elsif period == self.class::PERIOD_DAY
         return 'day'
@@ -99,13 +101,13 @@ module WeatherProviders
       if not changed
         self.results[:skipped] += 1
         return f
-      # else
-      #   changes = f.changes
-      #   changes.each do |i, data|
-      #     data[0] = data[0].to_s
-      #     data[1] = data[1].to_s
-      #   end
-      #   Rails.logger.debug changes
+      else
+        changes = f.changes
+        changes.each do |i, data|
+          data[0] = data[0].to_s
+          data[1] = data[1].to_s
+        end
+        Rails.logger.debug changes
       end
 
       if not f.save
@@ -125,7 +127,7 @@ module WeatherProviders
 
     def observation_from_data(data)
       # Find observation or create a new one
-      f = Observation.where(
+      o = Observation.where(
         :station_id => data[:station_id],
         :from_datetime => data[:from_datetime],
         :to_datetime => data[:to_datetime],
@@ -135,14 +137,18 @@ module WeatherProviders
       # Collect all attributes that match a field in the observation model
       attributes = data.each do |attr, value|
           next if attr == Observation.primary_key
-          next if f.send(:all_timestamp_attributes).include?(attr.to_sym)
+          next if o.send(:all_timestamp_attributes).include?(attr.to_sym)
           Observation.column_names.include?(attr.to_s)
       end
 
       # Add collected attributes to observation
-      f.attributes = attributes
+      o.attributes = attributes
 
-      return f
+      if data['apparent_temperature_in_celcius'].nil?
+        o.apparent_temperature_in_celcius = o.calculate_apparent_temperature_in_celcius
+      end
+
+      return o
     end
 
   end

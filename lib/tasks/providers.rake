@@ -1,6 +1,7 @@
 namespace :providers do
   providers = {
     'forecast.io' => 'WeatherProviders::ForecastIo',
+    'KNMI' => 'WeatherProviders::KNMI',
     'Weather Underground' => 'WeatherProviders::WeatherUnderground',
     'Yr.no' => 'WeatherProviders::YrNo'
   }
@@ -11,7 +12,12 @@ namespace :providers do
       Rails.logger = Logger.new(STDOUT)
 
       providers.each_with_index do |(provider_name, provider_class), i|
-        provider = "#{provider_class}::Forecasts".constantize.new()
+        begin
+          provider = "#{provider_class}::Forecasts".constantize.new()
+        rescue NameError
+          next
+        end
+
         stations = Station.all
         stations.each do |station|
           provider.import_forecasts(station)
@@ -41,7 +47,12 @@ namespace :providers do
       end
 
       providers.each_with_index do |(provider_name, provider_class), i|
-        provider = "#{provider_class}::Observations".constantize.new()
+        begin
+          provider = "#{provider_class}::Observations".constantize.new()
+        rescue NameError
+          next
+        end
+
         stations = Station.all
         stations.each do |station|
           provider.import_observations(station, date)

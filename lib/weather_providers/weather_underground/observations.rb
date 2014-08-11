@@ -47,9 +47,11 @@ module WeatherProviders::WeatherUnderground
 
     def get_from_datetime(station, data, period)
       date = data['date']
-      Time.zone = date['tzname']
-      return Time.zone.local(date['year'], date['mon'], date['mday'],
-                             date['hour'], date['minute'])
+      return Time.utc(date['year'], date['mon'], date['mday'],
+                             date['hour'], date['min'])
+      # Time.zone = date['tzname']
+      # return Time.zone.local(date['year'], date['mon'], date['mday'],
+      #                        date['hour'], date['min'])
     end
 
     def get_to_datetime(station, data, period)

@@ -1,0 +1,40 @@
+<h1>Listing stats</h1>
+
+<table>
+  <thead>
+    <%# <tr> %>
+    <%#   <th>from_datetime</th> %>
+    <%#   <th>to_datetime</th> %>
+    <%# </tr> %>
+  </thead>
+
+  <tbody>
+  <tr>
+    <th>Provider</th>
+    <% @timepoints.each do |t| %>
+      <th><%= t %></th>
+  <% end %>
+  </tr>
+
+  <%= @timepoints.size %>
+  <%= @fs.size %>
+  <%= @obs.size %>
+
+  <% @stats.each do |provider, stats| %>
+    <tr>
+      <td><%= provider %> observations</td>
+      <% stats.observations.each do |t, o| %>
+        <td><%= o.from_datetime if o %></td>
+      <% end %>
+    </tr>
+
+    <tr>
+      <td><%= provider %> forecasts</td>
+      <% stats.forecasts.each do |t, f| %>
+        <td><%= f.from_datetime if f %></td>
+      <% end %>
+    </tr>
+  <% end %>
+
+  </tbody>
+</table>
