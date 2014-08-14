@@ -72,6 +72,8 @@ module WeatherProviders::WeatherUnderground
     end
 
     def get_precipitation_in_mm_per_hour(station, data, period)
+      return nil if data['precipm'] == -999
+      return nil if data['precipm'] == -9999
       return data['precipm']
     end
 

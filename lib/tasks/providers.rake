@@ -102,6 +102,8 @@ namespace :providers do
 
         provider = "#{provider_class}::Observations".constantize.new()
         stations = Station.all
+        # stations = Station.where(:name => 'De Bilt')
+        # stations = Station.where(:name => 'Westdorpe')
         stations.each do |station|
           provider.import_observations(station, date)
           if not station == stations.last

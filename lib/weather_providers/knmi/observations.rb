@@ -81,7 +81,15 @@ module WeatherProviders::KNMI
 
     def get_from_datetime(station, data, period)
       # Remove 2 hours because of wrong time conversion in knmi library
-      data[:Time] - 2.hour
+      dt =data[:YYYYMMDD]
+
+      # Work around silly KNMI hours counting
+      dt = dt + (data[:HH] - 1).hour
+
+      # Convert to UTC
+      dt = dt - 2.hour
+
+      return dt
     end
 
     def get_to_datetime(station, data, period)
@@ -103,6 +111,7 @@ module WeatherProviders::KNMI
 
     def get_precipitation_in_mm_per_hour(station, data, period)
       # RH = Hourly precipitation amount (in 0.1 mm) (-1 for <0.05 mm);
+      return 0.05 if data[:RH] < 0
       return data[:RH]
     end
 

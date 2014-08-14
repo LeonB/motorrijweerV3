@@ -1,0 +1,15 @@
+{
+  "name": "MotorrijweerV3",
+  "lib": {
+    "name": "bower-rails generated lib assets",
+    "dependencies": {}
+  },
+  "vendor": {
+    "name": "bower-rails generated vendor assets",
+    "dependencies": {}
+  },
+  "dependencies": {
+    "highcharts": "~4.0.3",
+    "moment": "~2.8.1"
+  }
+}

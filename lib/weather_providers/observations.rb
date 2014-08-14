@@ -102,12 +102,12 @@ module WeatherProviders
         self.results[:skipped] += 1
         return f
       else
-        changes = f.changes
-        changes.each do |i, data|
-          data[0] = data[0].to_s
-          data[1] = data[1].to_s
-        end
-        Rails.logger.debug changes
+        # changes = f.changes
+        # changes.each do |i, data|
+        #   data[0] = data[0].to_s
+        #   data[1] = data[1].to_s
+        # end
+        # Rails.logger.debug changes
       end
 
       if not f.save

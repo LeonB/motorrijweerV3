@@ -8,7 +8,7 @@ gem 'rails', '~> 4.1.0'
 gem 'sass-rails', '~> 4.0.3'
 
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
+# gem 'uglifier', '>= 1.3.0'
 
 # Use CoffeeScript for .js.coffee assets and views
 # gem 'coffee-rails', '~> 4.0.0'
@@ -63,7 +63,8 @@ end
 # gem 'debugger', group: [:development, :test]
 
 group :test do
-  gem 'simplecov', :require => false
+  gem 'minitest'
+  # gem 'simplecov', :require => false
   gem 'webmock'
 end
 
@@ -75,6 +76,11 @@ gem 'awesome_nested_set', '~> 3.0.0.rc.2'
 gem 'geocoder'
 gem 'forecast_io'
 gem 'wunderground'
+gem 'knmi', :github => 'bullfight/knmi', :path => 'vendor/gems/knmi'
+
+# yr.no gem
+gem 'yr_no', :path => 'vendor/gems/yr_no'
+
 # Use for caching api calls
 gem 'cache_method'
 # A unit handling library for ruby
@@ -83,3 +89,4 @@ gem 'require_reloader'
 
 # Use safe yaml parsing
 gem 'safe_yaml'
+gem 'paloma'

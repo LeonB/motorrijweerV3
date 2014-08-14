@@ -11,10 +11,11 @@ module WeatherProviders::ForecastIo
 
     def get_api_data(station, date)
       # https://api.forecast.io/forecast/9ccd69acf062e01564240edd8a71f3d2/51.423981,5.392537
+      # ts = date.to_time.iso8601 # midnight local time
       ts = date.to_datetime.to_i
       return ForecastIO.forecast(station.latitude, station.longitude, {time: ts})
     end
-    cache_method :get_api_data, 60.minutes.to_i
+    # cache_method :get_api_data, 60.minutes.to_i
 
     def collect_processed_hourly_data(station, data)
       return [] if not data.has_key?(:hourly)
@@ -43,7 +44,10 @@ module WeatherProviders::ForecastIo
     end
 
     def get_from_datetime(station, data, period)
-      return Time.at(data.time).to_datetime
+      # data.time = data.time - 2.hours
+      # print Time.at(data.time)
+      # print "\n"
+      return Time.at(data.time)
     end
 
     def get_to_datetime(station, data, period)

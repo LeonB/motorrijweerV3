@@ -27,6 +27,12 @@ MotorrijweerV3::Application.configure do
   # number of complex assets.
   config.assets.debug = true
 
+  # config.autoload_paths += Dir["#{config.root}/lib/**/"]
+  # reload_gems = %w(yr_no) # names of gems which should autoreload
+  # config.autoload_paths += Gem.loaded_specs.values.inject([]){ |a,gem| a += gem.load_paths if reload_gems.include? gem.name; a }
+  # require 'active_support/dependencies'
+  # ActiveSupport::Dependencies.explicitly_unloadable_constants += reload_gems.map { |gem| gem.classify }
+
   # Reload local gems
   RequireReloader.watch_local_gems!
 

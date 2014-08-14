@@ -34,3 +34,6 @@
 
 # Ignore code coverage
 /coverage
+
+# Ignore bower installed libraries
+/vendor/assets/components

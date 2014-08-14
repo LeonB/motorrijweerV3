@@ -3,10 +3,23 @@ task :import_knmi_stations => :environment do
 
   # From KNMI gem
   KNMI::Station.send(:stations).each do |knmi_station|
-    station = Station.where("lower(name) =?", knmi_station.name)
+    print knmi_station.to_json
+    print "\n"
+    station = Station.find_by("lower(name) =?", knmi_station.name.downcase)
+
+    # Station exists: skip it
     if not station.nil?
-      print knmi_station.name + "\n"
+      next
     end
+
+    # Find region by coördinates
+    # station = Station.new(
+    #   :name => knmi_station.name,
+    #   :latitude => knmi_station.lat,
+    #   :longitude => knmi_station.lng,
+    # ).save()
+
+    print knmi_station.name + "\n"
     print "---------------\n"
   end
 end
